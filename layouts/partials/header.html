@@ -1,0 +1,32 @@
+<!-- Navigation-->
+<header>
+    <div class="container">
+        <nav class="navbar navbar-expand-md pb-0">
+            <div class="container">
+                <button class="navbar-toggler mt-1 pb-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a class="site_brand text-center ms-auto mx-md-auto" href="{{ "/" | relLangURL }}">
+                    {{- .Site.Title -}}
+                    {{- if .Site.Params.brand_icon -}}<span id="header-logo">{{ partial "icon" "brand" }}</span>{{- end -}}
+                    {{- with .Site.Params.subtitle -}}<span id="header-subtitle">{{ . }}</span>{{- end -}}
+                </a>
+            </div>
+        </nav>
+        <nav class="navbar navbar-expand-md" id="main_nav">
+            <div class="container text-center">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto">
+                        {{ $currentPage := . }}
+                        {{ range .Site.Menus.main.ByWeight }}
+                        <li class="nav-item text-center">
+                            <a class="nav-link px-md-3 py-1 py-md-0 {{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active link-info{{ else }} link-primary{{end}}" href="{{ .URL }}" title="{{ .Title }}">{{ .Name }}</a>
+                        </li>
+                        {{ end }}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+

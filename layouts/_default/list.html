@@ -1,0 +1,23 @@
+{{ define "main" }}
+    <main>
+        {{ with.Content }}
+        <article>
+            {{ . }}
+        </article>
+        {{ end }}
+        <article>
+            <h2>Research projects</h2>
+            <ul class="list-group">
+                {{ $paginator := .Paginate (where site.RegularPages "Type" "in" site.Params.mainSections) }}
+                {{ $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
+                {{ if .IsHome }}
+                    {{ range $paginator.Pages }}{{ .Render "li" }}{{ end }}
+                {{ end }}
+                {{ if not .IsHome }}
+                    {{ range $paginator.Pages }}{{ .Render "summary" }}{{ end }}
+                {{ end }}
+            </ul>
+            {{ partial "pagination.html" . }}
+        </article>
+    </main>
+{{ end }}
